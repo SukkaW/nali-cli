@@ -19,6 +19,8 @@ yarn global add nali-cli
 # npm install nali-cli -g
 ```
 
+> Prebuilt binaries is also available under the [`bin`](https://github.com/SukkaW/nali-cli/tree/master/bin) directory of the GitHub Repo.
+
 Execute `nali` to download `qqwry.dat` right after installation:
 
 ```
