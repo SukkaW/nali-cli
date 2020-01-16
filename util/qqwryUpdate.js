@@ -1,12 +1,25 @@
 require('stream.pipeline-shim/auto');
 const { promisify } = require('util');
-const { createWriteStream, renameSync } = require('fs');
+const { existsSync, createWriteStream, renameSync, mkdirSync: _mkdirSync } = require('fs');
+const { dirname } = require('path');
 const { pipeline: _pipeline } = require('stream');
 const { get } = require('axios');
 const { decode: gbkDecode } = require('gbk.js');
 const pipeline = promisify(_pipeline);
 const ProgressBar = require('progress');
+const { yellow, green } = require('chalk');
 const { version: cliVersion } = require('../package.json');
+const QQWry = require('lib-qqwry');
+const { spacing } = require('pangu');
+
+function mkdirsSync(path) {
+  if (!path) throw new TypeError('path is required!');
+
+  const parent = dirname(path);
+
+  if (!existsSync(parent)) mkdirsSync(parent);
+  if (!existsSync(path)) _mkdirSync(path);
+}
 
 async function getURLFile(url, showProgressBar = false) {
   return get(url, {
@@ -45,6 +58,7 @@ async function getLastInfo() {
 
 async function qqwryUpdate(dataPath) {
   const tempPath = `${dataPath}.tmp`;
+  mkdirsSync(dirname(tempPath));
   return pipeline(
     await get_qqwry(true),
     createWriteStream(tempPath)
@@ -53,5 +67,14 @@ async function qqwryUpdate(dataPath) {
   });
 }
 
+async function downloadQqwry(dataPath) {
+  console.log(yellow('没有找到 IP 数据库！开始下载...'));
+  qqwryUpdate(dataPath).then(() => {
+    const { Area: dataVersion } = new QQWry(true, dataPath).searchIP('255.255.255.255');
+    console.log(green('下载完成!') + ' IP 库版本: ' + spacing(dataVersion.replace('IP数据', '').trim()));
+  });
+}
+
 exports.getLastInfo = getLastInfo;
 exports.qqwryUpdate = qqwryUpdate;
+exports.downloadQqwry = downloadQqwry;

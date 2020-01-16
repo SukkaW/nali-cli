@@ -19,6 +19,12 @@ yarn global add nali-cli
 # npm install nali-cli -g
 ```
 
+Execute `nali` to download `qqwry.dat` right after installation:
+
+```
+$ nali
+```
+
 ## Usage
 
 Query a simple IP address:
