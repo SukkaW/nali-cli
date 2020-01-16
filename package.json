@@ -1,13 +1,18 @@
 {
   "name": "nali-cli",
-  "version": "0.0.1",
-  "description": "",
+  "version": "1.0.0",
+  "description": "Parse geoinfo of IP Address without leaving your terminal",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "nali": "./lib/nali.js"
+    "nali": "./lib/nali.js",
+    "nali-dig": "./lib/nali-dig.js",
+    "nali-nslookup": "./lib/nali-nslookup.js",
+    "nali-ping": "./lib/nali-ping.js",
+    "nali-tracepath": "./lib/nali-tracepath.js",
+    "nali-traceroute": "./lib/nali-traceroute.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +24,14 @@
     "url": "https://github.com/SukkaW/nali-cli/issues"
   },
   "homepage": "https://github.com/SukkaW/nali-cli#readme",
+  "keywords": [
+    "qqwry",
+    "纯真 IP 库",
+    "IP 地址",
+    "IP 解析",
+    "Nali",
+    "nali-cli"
+  ],
   "dependencies": {
     "axios": "^0.19.1",
     "chalk": "^3.0.0",

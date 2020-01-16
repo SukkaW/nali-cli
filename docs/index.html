@@ -1,0 +1,34 @@
+ß<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Nali CLI | Sukka</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <meta name="theme-color" content="#f5f5f5">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/recipage@0.1.1/dist/recipage.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.13.1/styles/github.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emojify.js@1.1.0/dist/css/sprites/emojify.css">
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+
+<script>
+    window.$recipage = {
+        url: 'https://raw.github.cnpmjs.org/sukkaw/nali-cli/master/README.md',
+        github: 'https://github.com/SukkaW/Nali-Cli',
+        footer: {
+            title: 'Nali CLI'
+        },
+        callback: function () {
+            hljs.initHighlightingOnLoad();
+        }
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/recipage@0.1.1"></script>
+
+</html>
