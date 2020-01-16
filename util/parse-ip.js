@@ -17,4 +17,4 @@ const parseIp = str => {
   })
 }
 
-exports.parseIp = parseIp;
+module.exports = parseIp;
