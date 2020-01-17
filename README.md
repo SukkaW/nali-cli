@@ -27,6 +27,8 @@ Execute `nali` to download `qqwry.dat` right after installation:
 $ nali
 ```
 
+Required IP Database `qqwry.dat` will begin to download automatically during first time execution.
+
 ## Usage
 
 Query a simple IP address:
