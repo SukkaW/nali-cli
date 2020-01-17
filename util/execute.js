@@ -9,11 +9,18 @@ function main(exe, args) {
     downloadQqwry(dataPath);
   } else {
     const parseIp = require('../util/parse-ip');
+    const parseCdn = require('../util/parse-cdn');
     const command = spawn(exe, args);
 
-    command.stdout.on('data', data => {
-      process.stdout.write(parseIp(data.toString()));
-    });
+    if (exe === 'dig' || exe === 'nslookup') {
+      command.stdout.on('data', data => {
+        process.stdout.write(parseIp(parseCdn(data.toString())));
+      });
+    } else {
+      command.stdout.on('data', data => {
+        process.stdout.write(parseIp(data.toString()));
+      });
+    }
 
     command.stderr.on('data', data => {
       process.stdout.write(data.toString());
