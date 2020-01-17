@@ -22,6 +22,14 @@ function main(exe, args) {
     command.on('exit', code => {
       process.exit(code);
     });
+
+    command.on('error', err => {
+      if (err.code === 'ENOENT') {
+        console.error(`ENOENT: Nali CLI 找不到 ${exe}, 请先安装或检查 PATH!`);
+      } else {
+        console.error('嗷呜，出现错误惹! ' + err.message || err);
+      }
+    });
   }
 }
 
