@@ -2,7 +2,8 @@ const { gray } = require('chalk');
 const { spacing } = require('pangu');
 const { join } = require('path');
 const QQWry = require('lib-qqwry');
-const { searchIP } = new QQWry(true, join(process.env.HOME, '.config/nali-cli/qqwry.dat'));
+const { homedir } = require('os');
+const { searchIP } = new QQWry(true, join(homedir(), '.config/nali-cli/qqwry.dat'));
 const { v4: isIpv4 } = require('is-ip');
 const reSimpleIP = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/gm
 

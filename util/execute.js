@@ -1,7 +1,8 @@
 const { spawn } = require('child_process');
 const { existsSync } = require('fs');
 const { join } = require('path');
-const dataPath = join(process.env.HOME, '.config/nali-cli/qqwry.dat');
+const { homedir } = require('os');
+const dataPath = join(homedir(), '.config/nali-cli/qqwry.dat');
 
 function main(exe, args) {
   if (!existsSync(dataPath)) {
