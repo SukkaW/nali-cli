@@ -1,14 +1,7 @@
 const { spawn } = require('child_process');
-const { existsSync } = require('fs');
-const { join } = require('path');
-const { homedir } = require('os');
-const dataPath = join(homedir(), '.config/nali-cli/qqwry.dat');
 
 function main(exe, args) {
-  if (!existsSync(dataPath)) {
-    const { downloadQqwry } = require('../util/qqwryUpdate');
-    downloadQqwry(dataPath);
-  } else {
+  require('./check-dat')(() => {
     const parseIp = require('../util/parse-ip');
     const parseCdn = require('../util/parse-cdn');
     const command = spawn(exe, args);
@@ -38,7 +31,7 @@ function main(exe, args) {
         console.error('嗷呜，出现错误惹! ' + err.message || err);
       }
     });
-  }
+  })
 }
 
 module.exports = main;
