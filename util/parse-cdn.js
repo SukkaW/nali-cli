@@ -1,6 +1,6 @@
 const { gray } = require('chalk');
 const cdnData = require('@sukka/cdn');
-const rCdnCNAME = new RegExp(Object.keys(cdnData).join('(\\.)*|'), 'gm');
+const rCdnCNAME = new RegExp(Object.keys(cdnData).join('(\\.)*$|'), 'gm');
 
 const parseCdn = str => {
   return str.replace(rCdnCNAME, match => {
