@@ -1,6 +1,6 @@
 {
   "name": "nali-cli",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Parse geoinfo of IP Address without leaving your terminal",
   "main": "index.js",
   "scripts": {
