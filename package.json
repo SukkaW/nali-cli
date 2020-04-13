@@ -34,7 +34,7 @@
     "nali-cli"
   ],
   "dependencies": {
-    "@sukka/cdn": "^1.0.2",
+    "@sukka/cdn": "^1.0.3",
     "axios": "^0.19.2",
     "chalk": "^3.0.0",
     "commander": "^4.1.1",
