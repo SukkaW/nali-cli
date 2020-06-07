@@ -9,6 +9,7 @@
 <p align="center">
 <a href="https://skk.moe"><img alt="Author" src="https://img.shields.io/badge/Author-Sukka-blue.svg?style=flat-square"/></a>
 <a href="https://www.npmjs.com/package/nali-cli"><img alt="Version" src="https://img.shields.io/npm/v/nali-cli.svg?style=flat-square"/></a>
+<img slt="Download times" src="https://img.shields.io/npm/dt/nali-cli?style=flat-square"/>
 <img alt="License" src="https://img.shields.io/npm/l/nali-cli.svg?style=flat-square"/>
 </p>
 
