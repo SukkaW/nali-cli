@@ -44,7 +44,7 @@
     "progress": "^2.0.3"
   },
   "devDependencies": {
-    "pkg": "^4.4.7"
+    "pkg": "^4.4.9"
   },
   "pkg": {
     "scripts": [
