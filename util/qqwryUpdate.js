@@ -51,9 +51,12 @@ const get_qqwry = showBar => getURLFile('https://qqwry.mirror.noc.one/QQWry.Dat'
 
 async function getLastInfo() {
   const copywrite = await get_copywrite();
-  copywrite.read(24);
-  const version = gbkDecode(copywrite.read(64)).replace(/\0/g, '');
-  return version;
+  let buf = Buffer.alloc(0)
+  for await (const data of copywrite) {
+    buf = Buffer.concat([buf, data])
+  }
+  return gbkDecode(buf.slice(24, 64))
+    .replace(/\0/g, '');
 }
 
 async function qqwryUpdate(dataPath) {
