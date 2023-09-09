@@ -3,25 +3,35 @@ const pangu = require("pangu");
 const replaceAsync = require("string-replace-async");
 const { get } = require("axios");
 const { QUERY_IP_SERVER_MAP } = require("./const");
-
 const QUERY_SERVER_NAME = "taobao";
+const FETCH_TIMEOUT = 3000;
 
 const ipv4Regex =
   /(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}/gm;
 
+const cacheMap = new Map();
+
 const getValueByKey = (key, dataObj, schema) => {
   const keyOfSchema = schema[key];
   if (Array.isArray(keyOfSchema)) {
-    return schema[key].reduce((tempResult, currentKey) => {
+    const value = schema[key].reduce((tempResult, currentKey) => {
       if (!tempResult.hasOwnProperty(currentKey)) {
-        return undefined;
+        return "?";
       }
       return tempResult[currentKey];
     }, dataObj);
+
+    if (typeof value === typeof {}) return "?";
+
+    return value;
   }
 
-  if (!dataObj.hasOwnProperty(keyOfSchema)) {
-    return undefined;
+  // If the result has "?", it means that the server data does not match the current schema.
+  if (
+    !dataObj.hasOwnProperty(keyOfSchema) ||
+    typeof dataObj[keyOfSchema] === typeof {}
+  ) {
+    return "?";
   }
 
   return dataObj[keyOfSchema];
@@ -37,9 +47,12 @@ const getFormattedIpInfo = (res, serverSchema) => {
 };
 
 async function getIpInfo(ip) {
-  return new Promise((resolve) => {
+  const cacheData = cacheMap.get(ip);
+  if (cacheData) return cacheData;
+
+  const getIpInfoPromise = new Promise((resolve) => {
     const serverSchema = QUERY_IP_SERVER_MAP[QUERY_SERVER_NAME];
-    get(serverSchema.getUrl(ip), { timeout: 3000 })
+    get(serverSchema.getUrl(ip), { timeout: FETCH_TIMEOUT })
       .then(({ data }) => {
         const { country, region, city, isp } = getFormattedIpInfo(
           data,
@@ -52,9 +65,14 @@ async function getIpInfo(ip) {
         resolve(ipInfo);
       })
       .catch(() => {
+        // delete the cache when fetch error
+        cacheMap.delete(ip);
         resolve();
       });
   });
+
+  cacheMap.set(ip, getIpInfoPromise);
+  return getIpInfoPromise;
 }
 
 async function parseIpAsync(str) {
