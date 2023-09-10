@@ -32,6 +32,7 @@
     "nali-cli"
   ],
   "dependencies": {
+    "@inquirer/prompts": "^3.1.1",
     "@sukka/cdn": "^1.0.3",
     "axios": "^0.19.2",
     "chalk": "^3.0.0",

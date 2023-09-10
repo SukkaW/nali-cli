@@ -2,14 +2,15 @@ const { gray } = require("chalk");
 const pangu = require("pangu");
 const replaceAsync = require("string-replace-async");
 const { get } = require("axios");
-const { QUERY_IP_SERVER_MAP } = require("./const");
-const QUERY_SERVER_NAME = "taobao";
-const FETCH_TIMEOUT = 3000;
+const { QUERY_SERVER_SCHEMA } = require("./server-schema");
+const { DEFAULT_QUERY_SERVER, FETCH_TIMEOUT } = require("./const");
+const { getPersistServerName } = require("./persist");
 
 const ipv4Regex =
   /(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}/gm;
 
 const cacheMap = new Map();
+let targetServerName = DEFAULT_QUERY_SERVER;
 
 const getValueByKey = (key, dataObj, schema) => {
   const keyOfSchema = schema[key];
@@ -26,7 +27,8 @@ const getValueByKey = (key, dataObj, schema) => {
     return value;
   }
 
-  // If the result has "?", it means that the server data does not match the current schema.
+  // If the result has "?", it means that the server data does not match the current schema,
+  // The schema need to be updated, or the special ip info was not returned as expected.
   if (
     !dataObj.hasOwnProperty(keyOfSchema) ||
     typeof dataObj[keyOfSchema] === typeof {}
@@ -51,7 +53,7 @@ async function getIpInfo(ip) {
   if (cacheData) return cacheData;
 
   const getIpInfoPromise = new Promise((resolve) => {
-    const serverSchema = QUERY_IP_SERVER_MAP[QUERY_SERVER_NAME];
+    const serverSchema = QUERY_SERVER_SCHEMA[targetServerName];
     get(serverSchema.getUrl(ip), { timeout: FETCH_TIMEOUT })
       .then(({ data }) => {
         const { country, region, city, isp } = getFormattedIpInfo(
@@ -76,6 +78,9 @@ async function getIpInfo(ip) {
 }
 
 async function parseIpAsync(str) {
+  const persistServerName = await getPersistServerName();
+  targetServerName = persistServerName || targetServerName;
+
   return await replaceAsync(str, ipv4Regex, async (match) => {
     const ipInfo = await getIpInfo(match);
     if (ipInfo) {
