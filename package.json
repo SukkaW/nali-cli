@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "pkg . --targets 'node12-linux-x64,node12-macos-x64' --out-path './bin/'"
+    "build": "pkg . --targets 'node16-linux-x64,node16-macos-x64,node16-macos-arm64' --out-path './bin/'"
   },
   "bin": {
     "nali": "./lib/nali.js",
@@ -43,7 +43,7 @@
     "string-replace-async": "^2.0.0"
   },
   "devDependencies": {
-    "pkg": "^4.4.9"
+    "pkg": "^5.8.1"
   },
   "pkg": {
     "scripts": [
