@@ -14,6 +14,12 @@
 <img alt="License" src="https://img.shields.io/npm/l/nali-cli.svg?style=flat-square"/>
 </p>
 
+## Feature
+- [x] Query IP Address or CDN's CNAME online.
+- [x] Cache for duplicate IP information.
+- [x] Allows to select query server from multiple servers, and remember.
+- [x] Used with other commands, receives standard output as a pipe, convert the IP address in it.
+
 ## Installation
 
 ```bash
@@ -110,7 +116,7 @@ cdn.jsdelivr.net.cdn.cloudflare.net. [Cloudflare]
 >
 > Nali required related software installed. For example, in order to use `nali-dig` and `nali-nslookup` you need to have bind (dnsutils) installed.
 
-Change IP query Server:
+Change Query Server:
 
 ```
 nali server
