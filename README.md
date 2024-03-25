@@ -8,10 +8,17 @@
 
 <p align="center">
 <a href="https://skk.moe"><img alt="Author" src="https://img.shields.io/badge/Author-Sukka-blue.svg?style=flat-square"/></a>
+<a href="https://github.com/fantasyroot"><img alt="Contributor" src="https://img.shields.io/badge/Contributor-Anto17-blue.svg?style=flat-square"/></a>
 <a href="https://www.npmjs.com/package/nali-cli"><img alt="Version" src="https://img.shields.io/npm/v/nali-cli.svg?style=flat-square"/></a>
 <img slt="Download times" src="https://img.shields.io/npm/dt/nali-cli?style=flat-square"/>
 <img alt="License" src="https://img.shields.io/npm/l/nali-cli.svg?style=flat-square"/>
 </p>
+
+## Feature
+- [x] Query IP Address or CDN's CNAME online.
+- [x] Cache for duplicate IP information.
+- [x] Allows to select query server from multiple servers, and remember.
+- [x] Used with other commands, receives standard output as a pipe, convert the IP address in it.
 
 ## Installation
 
@@ -21,14 +28,6 @@ yarn global add nali-cli
 ```
 
 > Prebuilt binaries is also available under the [`bin`](https://github.com/SukkaW/nali-cli/tree/master/bin) directory of the GitHub Repo.
-
-Execute `nali` to download `qqwry.dat` right after installation:
-
-```
-$ nali
-```
-
-Required IP Database `qqwry.dat` will begin to download automatically during first time execution.
 
 ## Usage
 
@@ -108,6 +107,7 @@ cdn.jsdelivr.net.cdn.cloudflare.net. [Cloudflare]
 ```
 
 > Nali CLI has built-in tools:
+>
 > - `nali-dig`
 > - `nali-nslookup`
 > - `nali-ping`
@@ -116,10 +116,16 @@ cdn.jsdelivr.net.cdn.cloudflare.net. [Cloudflare]
 >
 > Nali required related software installed. For example, in order to use `nali-dig` and `nali-nslookup` you need to have bind (dnsutils) installed.
 
-Update IP Database:
+Change Query Server:
 
 ```
-nali update
+nali server
+
+# View the current query server
+nali server -c
+
+# Change query server to default
+nali server -d
 ```
 
 ## Interface
@@ -135,15 +141,12 @@ Options:
 
 Commands:
   parse          解析 stdin 或参数中的 IP 信息 (默认)
-  update         更新 IP 库
+  server         更改 IP 查询服务器
   help [cmd]     display help for [cmd]
 ```
 
 ## Related
 
-- [CZ88 QQIP 数据库](http://www.cz88.net/fox/ipdat.shtml) 纯真网络提供的免费离线 IP 数据库
-- [lib-qqwry](https://github.com/cnwhy/lib-qqwry) 高效的 Node.js 版纯真 IP 库解析引擎
-- [QQWry Mirror](https://qqwry.mirror.noc.one) Just a mirror of qqwry ipdb
 - [Nali](https://github.com/SukkaW/Nali) Oringinal Nali CLI, written in C & Perl
 - [Commander.js](https://github.com/tj/commander.js) Node.js command-line interfaces made easy
 - [SukkaLab/cdn](https://lab.skk.moe/cdn) A CDN CNAME Data
